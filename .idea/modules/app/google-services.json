@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "104540389686",
+    "project_id": "stopnjot-d01",
+    "storage_bucket": "stopnjot-d01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104540389686:android:ef0313722c9f5c6096f397",
+        "android_client_info": {
+          "package_name": "com.example.stopnjot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104540389686-o0qgn3gjiiqi8iu63krpfn9jj4k4v721.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD3SP1nkf3uzA85-0WHYHdqXBTKjV5Be8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104540389686-o0qgn3gjiiqi8iu63krpfn9jj4k4v721.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

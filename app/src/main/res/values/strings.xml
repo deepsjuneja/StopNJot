@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">StopNJot</string>
+    <string name="user_screen_label">Jot down....</string>
+    <string name="add_note">Add new note</string>
+    <string name="note_screen_label">Jotted notes</string>
+    <string name="password_screen_label">Generated passwords</string>
+</resources>

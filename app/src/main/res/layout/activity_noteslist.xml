@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="5dp"
+    android:paddingTop="5dp"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="end|bottom"
+        android:layout_marginVertical="50dp"
+        android:layout_marginHorizontal="35dp"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:backgroundTint="#BA8202D1"
+        android:background="#BA8202D1"
+        app:backgroundTint="#BA8202D1"
+        android:tint="#BA8202D1"
+        android:outlineSpotShadowColor="#BA8202D1"
+        android:outlineAmbientShadowColor="#BA8202D1"
+        app:rippleColor="#BA8202D1"
+        android:foregroundTint="#BA8202D1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You have not added any notes yet!!!"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="#70000000"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:id="@+id/no_notes"/>
+
+</RelativeLayout>
