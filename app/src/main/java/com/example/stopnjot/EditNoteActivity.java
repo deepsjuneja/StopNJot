@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,6 +24,8 @@ public class EditNoteActivity extends AppCompatActivity {
     Button cancelButton, updateButton, deleteButton;
     String noteMsg = "", noteDate = "";
     private DatabaseReference mDatabaseReference;
+    private FirebaseUser currUser;
+    private String uId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +45,9 @@ public class EditNoteActivity extends AppCompatActivity {
 
         noteEditText.setText(noteMsg);
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("notes");
+        currUser = FirebaseAuth.getInstance().getCurrentUser();
+        uId = currUser.getUid();
 //        String dbId = mDatabaseReference.getKey();
 
         updateButton.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +77,7 @@ public class EditNoteActivity extends AppCompatActivity {
 
         Note editNoteList = new Note(id, noteMsg, noteDate);
 
-        mDatabaseReference.child("Notes").child(id).setValue(editNoteList).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabaseReference.child(uId).child(id).setValue(editNoteList).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(EditNoteActivity.this, "Note updated", Toast.LENGTH_SHORT).show();
@@ -81,7 +87,7 @@ public class EditNoteActivity extends AppCompatActivity {
     }
 
     private void deleteNote(String id) {
-        mDatabaseReference.child("Notes").child(id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+        mDatabaseReference.child(uId).child(id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(EditNoteActivity.this, "Note deleted", Toast.LENGTH_SHORT).show();

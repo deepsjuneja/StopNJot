@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,6 +29,8 @@ public class GeneratePasswordActivity extends AppCompatActivity {
     String accountTag, genPassword;
     int passLen;
     private DatabaseReference databaseReference2;
+    private FirebaseUser currUser;
+    private String uId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +42,9 @@ public class GeneratePasswordActivity extends AppCompatActivity {
         genPassView = findViewById(R.id.genPasswordView);
         doneButton = findViewById(R.id.afterGenDoneButton);
 
-        databaseReference2 = FirebaseDatabase.getInstance().getReference();
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("passwords");
+        currUser = FirebaseAuth.getInstance().getCurrentUser();
+        uId = currUser.getUid();
 
         generatePasswordButton = findViewById(R.id.generatePasswordButton);
         generatePasswordButton.setOnClickListener(new View.OnClickListener() {
@@ -79,10 +85,10 @@ public class GeneratePasswordActivity extends AppCompatActivity {
     }
 
     private void generatePassword(String account, String password) {
-        String id = databaseReference2.push().getKey();
+        String id = databaseReference2.child(uId).push().getKey();
         Password passList = new Password(id, account, password);
 
-        databaseReference2.child("Passwords").child(id).setValue(passList).addOnCompleteListener(new OnCompleteListener<Void>() {
+        databaseReference2.child(uId).child(id).setValue(passList).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(GeneratePasswordActivity.this, "Password generated", Toast.LENGTH_SHORT).show();

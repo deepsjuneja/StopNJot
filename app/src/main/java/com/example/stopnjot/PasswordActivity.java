@@ -32,8 +32,8 @@ public class PasswordActivity extends AppCompatActivity {
     TextView no_password_view;
     FloatingActionButton fab2;
     FirebaseDatabase firebaseDatabase2;
-    FirebaseUser currUser;
-    DatabaseReference databaseReference2;
+    private FirebaseUser currUser;
+    private DatabaseReference databaseReference2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,8 +64,9 @@ public class PasswordActivity extends AppCompatActivity {
         currUser = FirebaseAuth.getInstance().getCurrentUser();
 
         firebaseDatabase2 = FirebaseDatabase.getInstance();
-        databaseReference2 = firebaseDatabase2.getReference("Passwords");
-        databaseReference2.addValueEventListener(new ValueEventListener() {
+        databaseReference2 = firebaseDatabase2.getReference("passwords");
+        String uId = currUser.getUid();
+        databaseReference2.child(uId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()) {

@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,6 +21,8 @@ public class ViewOrDeletePassword extends AppCompatActivity {
     Button cancelPButton, deletePButton;
     String accTag = "", passwrd = "";
     private DatabaseReference mDatabaseReference2;
+    private FirebaseUser currUser;
+    private String uId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +43,9 @@ public class ViewOrDeletePassword extends AppCompatActivity {
         accViewTextView.setText(accTag);
         passViewTextView.setText(passwrd);
 
-        mDatabaseReference2 = FirebaseDatabase.getInstance().getReference();
+        mDatabaseReference2 = FirebaseDatabase.getInstance().getReference("passwords");
+        currUser = FirebaseAuth.getInstance().getCurrentUser();
+        uId = currUser.getUid();
 //        String dbId = mDatabaseReference.getKey();
 
         deletePButton.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +64,7 @@ public class ViewOrDeletePassword extends AppCompatActivity {
     }
 
     private void deletePassword(String id) {
-        mDatabaseReference2.child("Passwords").child(id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+        mDatabaseReference2.child(uId).child(id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(ViewOrDeletePassword.this, "Password deleted", Toast.LENGTH_SHORT).show();

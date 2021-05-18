@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,6 +27,8 @@ public class AddNoteActivity extends AppCompatActivity {
     Button saveNoteButton, cancelAddNoteButton;
     String noteMsg, addNoteDate;
     private DatabaseReference databaseReference;
+    private FirebaseUser currUser;
+    private String uId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,7 +37,9 @@ public class AddNoteActivity extends AppCompatActivity {
 
         noteMsgText = findViewById(R.id.msgNote);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("notes");
+        currUser = FirebaseAuth.getInstance().getCurrentUser();
+        uId = currUser.getUid();
 
         saveNoteButton = findViewById(R.id.saveNoteButton);
         saveNoteButton.setOnClickListener(new View.OnClickListener() {
@@ -66,10 +72,10 @@ public class AddNoteActivity extends AppCompatActivity {
     }
 
     private void addNote(String noteMessage, String noteDate) {
-        String id = databaseReference.push().getKey();
+        String id = databaseReference.child(uId).push().getKey();
         Note noteList = new Note(id, noteMessage, noteDate);
 
-        databaseReference.child("Notes").child(id).setValue(noteList).addOnCompleteListener(new OnCompleteListener<Void>() {
+        databaseReference.child(uId).child(id).setValue(noteList).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(AddNoteActivity.this, "Note added", Toast.LENGTH_SHORT).show();

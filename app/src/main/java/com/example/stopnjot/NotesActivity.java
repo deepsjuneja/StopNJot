@@ -32,8 +32,8 @@ public class NotesActivity extends AppCompatActivity {
     TextView no_note_view;
     FloatingActionButton fab;
     FirebaseDatabase firebaseDatabase;
-    FirebaseUser currUser;
-    DatabaseReference databaseReference;
+    private FirebaseUser currUser;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,12 +64,15 @@ public class NotesActivity extends AppCompatActivity {
         currUser = FirebaseAuth.getInstance().getCurrentUser();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Notes");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference = firebaseDatabase.getReference("notes");
+        String uId = currUser.getUid();
+//        String id = databaseReference.child(uId).push().getKey();
+        databaseReference.child(uId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
                     Note newNote = dataSnapshot.getValue(Note.class);
+//                Note newNote = snapshot.getValue(Note.class);
                     noteList.add(newNote);
                 }
                 notesAdapter.notifyDataSetChanged();
