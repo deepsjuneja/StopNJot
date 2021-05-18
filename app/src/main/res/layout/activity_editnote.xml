@@ -62,6 +62,7 @@
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="6dp"
                     android:backgroundTint="#68790FB8"
+                    android:outlineSpotShadowColor="@android:color/transparent"
                     android:textSize="16sp"
                     android:id="@+id/cancelEditNoteButton"/>
 

@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_height="65dp"
         android:layout_weight="5"
         android:orientation="horizontal"
         android:gravity="center_vertical"
@@ -18,28 +18,31 @@
         android:id="@+id/noteView">
 
         <TextView
-            android:textStyle="bold"
-            android:layout_marginLeft="20dp"
-            android:gravity="center_vertical"
-            android:textSize="24sp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/msgTextView"
+            android:textStyle="bold"
+            android:paddingVertical="5dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:textSize="22sp"
             android:textColor="#512901"
             android:fontFamily="times"
+            android:ellipsize="end"
+            android:maxLines="1"
             tools:text="Mario's b'day"/>
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="18sp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="35dp"
             android:textColor="#90000000"
             tools:text="02/24/2021"
             android:gravity="center_vertical"
             android:id="@+id/dateTextView"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
 
